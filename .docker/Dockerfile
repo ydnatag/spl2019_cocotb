@@ -17,3 +17,7 @@ RUN git clone https://github.com/tgingold/ghdl.git ghdl_src/ \
 
 RUN pip install git+https://github.com/potentialventures/cocotb.git
 
+RUN apt install -y pandoc
+
+CMD /bin/bash
+

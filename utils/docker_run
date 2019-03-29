@@ -1,0 +1,17 @@
+#!/bin/bash
+
+REPO_PATH=$(git rev-parse show-toplevel)
+
+docker run -it \
+           -v ${HOME}:${HOME} \
+           -w $PWD \
+           -u $(id -u):$(id -g) --rm \
+           -v/etc/passwd:/etc/passwd:ro \
+           -v/etc/shadow:/etc/shadow:ro \
+           -v/etc/group:/etc/group:ro \
+           -v /tmp:/tmp \
+           -e PATH=${REPO_PATH}/utils:${PATH}:/bin \
+           -e DISPLAY=$DISPLAY \
+           --net=host \
+            andresdemski/spl2019 \
+            ${@:-/bin/bash}

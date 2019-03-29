@@ -1,0 +1,12 @@
+#!/bin/bash
+
+REPO_PATH=$(git rev-parse --show-toplevel)
+
+cd $REPO_PATH
+pandoc -t revealjs \
+       -s -o index.html \
+       $REPO_PATH/presentation/cocotb.md \
+       -V revealjs-url=http://lab.hakim.se/reveal-js \
+       -V theme=league --mathjax --slide-level=2 \
+       -V transition=slide \
+       --css $REPO_PATH/presentation/cocotb.css

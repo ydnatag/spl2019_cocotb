@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO_PATH=$(git rev-parse show-toplevel)
+REPO_PATH=$(git rev-parse --show-toplevel)
 
 docker run -it \
            -v ${HOME}:${HOME} \

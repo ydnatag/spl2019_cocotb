@@ -1,0 +1,11 @@
+<testsuites name="results">
+  <testsuite name="all" package="all" tests="0">
+    <property name="random_seed" value="1553622438" />
+    <testcase classname="cocotest" name="hello_world" ratio_time="553776604172.168" sim_time_ns="1000000000.0" time="0.0018057823181152344">
+      <failure message="Test failed with random_seed=1553622438" stderr="Hello World" stdout="'Send raised exception:'" />
+    </testcase>
+    <testcase classname="cocotest" name="world_hello" ratio_time="1058633013629.4801" sim_time_ns="1000000000.0" time="0.0009446144104003906">
+      <failure message="Test failed with random_seed=1553622438" stderr="World Hello" stdout="'Send raised exception:'" />
+    </testcase>
+  </testsuite>
+</testsuites>

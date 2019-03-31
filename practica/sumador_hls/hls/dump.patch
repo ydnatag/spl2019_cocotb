@@ -1,0 +1,10 @@
+
+
+`ifdef COCOTB_SIM
+    initial begin
+        $dumpfile("./sim_build/waveform.vcd");
+        $dumpvars (0, sumador);
+    end
+`endif
+
+endmodule

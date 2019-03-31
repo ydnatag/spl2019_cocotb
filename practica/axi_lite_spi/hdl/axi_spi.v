@@ -4,8 +4,6 @@
 // File: axi_spi.v
 // Description: 
 //
-// AXI-SPI device for new candidates
-//
 // Author: Andres Demski
 //
 //------------------------------------------------------------------------------

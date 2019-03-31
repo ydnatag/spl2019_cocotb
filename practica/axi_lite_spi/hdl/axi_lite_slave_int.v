@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 // Company: Satellogic S.A
 //
-// File: axi_lite_slave_int.vhdl
+// File: axi_lite_slave_int.v
 // Description: 
 //
 // AXI Lite Slave Interface for any ip core. Based in Xilinx automagic core.

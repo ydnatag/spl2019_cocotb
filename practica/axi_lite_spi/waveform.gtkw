@@ -1,0 +1,39 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Mar 31 22:10:21 2019
+[*]
+[dumpfile] "/home/ademski/Documents/opensource/spl2019_cocotb/practica/axi_lite_spi/sim_build/waveform.vcd"
+[dumpfile_mtime] "Sun Mar 31 22:08:03 2019"
+[dumpfile_size] 8337
+[savefile] "/home/ademski/Documents/opensource/spl2019_cocotb/practica/axi_lite_spi/waveform.gtkw"
+[timestart] 0
+[size] 636 1039
+[pos] -1 -1
+*-20.000000 440000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 243
+[signals_width] 150
+[sst_expanded] 1
+[sst_vpaned_height] 305
+@200
+-AXI
+@28
+axi_spi.AXI_ACLK
+@22
+axi_spi.AXI_AWADDR[4:0]
+axi_spi.AXI_WDATA[31:0]
+@200
+-
+@22
+axi_spi.AXI_ARADDR[4:0]
+axi_spi.AXI_RDATA[31:0]
+@200
+-
+-SPI
+@28
+axi_spi.MOSI
+axi_spi.MISO
+axi_spi.SCLK
+axi_spi.SS[2:0]
+axi_spi.INT
+[pattern_trace] 1
+[pattern_trace] 0

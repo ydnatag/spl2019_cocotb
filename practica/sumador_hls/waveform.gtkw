@@ -1,0 +1,37 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Mar 31 20:32:53 2019
+[*]
+[dumpfile] "/home/ademski/Documents/opensource/spl2019_cocotb/practica/sumador_hls/sim_build/waveform.vcd"
+[dumpfile_mtime] "Sun Mar 31 20:32:25 2019"
+[dumpfile_size] 552043
+[savefile] "/home/ademski/Documents/opensource/spl2019_cocotb/practica/sumador_hls/waveform.gtkw"
+[timestart] 96660
+[size] 636 1039
+[pos] -1 -1
+*-12.027748 99680 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 243
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 324
+@24
+sumador.a_TDATA[7:0]
+@28
+sumador.a_TVALID
+sumador.a_TREADY
+@200
+-
+@24
+sumador.b_TDATA[7:0]
+@28
+sumador.b_TVALID
+sumador.b_TREADY
+@200
+-
+@24
+sumador.sum_TDATA[7:0]
+@28
+sumador.sum_TVALID
+sumador.sum_TREADY
+[pattern_trace] 1
+[pattern_trace] 0

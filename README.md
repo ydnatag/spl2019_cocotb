@@ -15,6 +15,13 @@ cd <PATH_AL_EJEMPLO>
 make
 ```
 
+Para ver las waveforms generadas para el caso de simulaciones
+de HDL:
+
+```bash
+make gtkwave
+```
+
 
 # Requisitos
 

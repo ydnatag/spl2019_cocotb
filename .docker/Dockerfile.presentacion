@@ -1,0 +1,4 @@
+FROM alpine:3.4
+
+RUN apk update && apk add nodejs git
+RUN npm install -g webpro/reveal-md#2.0.0-rc.2

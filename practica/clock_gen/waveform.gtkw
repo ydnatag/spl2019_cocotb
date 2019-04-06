@@ -1,0 +1,20 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sat Apr  6 02:25:48 2019
+[*]
+[dumpfile] "/home/ademski/Documents/opensource/spl2019_cocotb/practica/clock_gen/sim_build/waveform.vcd"
+[dumpfile_mtime] "Sat Apr  6 02:24:53 2019"
+[dumpfile_size] 202
+[savefile] "/home/ademski/Documents/opensource/spl2019_cocotb/practica/clock_gen/waveform.gtkw"
+[timestart] 0
+[size] 636 1039
+[pos] -1 -1
+*-12.027749 8300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 243
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 341
+@28
+clock_gen.clk
+[pattern_trace] 1
+[pattern_trace] 0

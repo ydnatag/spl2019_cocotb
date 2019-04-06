@@ -1,68 +1,10 @@
-.reveal p { text-align: left; }
+.reveal p  { text-align: left; }
 .reveal ul { display: block; }
 .reveal ol { display: block; }
 
-.reveal h1 {
-  font-size: 2.5em;
-}
-
-.reveal h2 {
-  font-size: 1.6em;
-}
-
-.reveal h3 {
-  font-size: 1.3em;
-}
-
-.reveal h4 {
-  font-size: 1em;
-}
-
-.reveal h1 {
-  text-shadow: none;
-}
-
-/*
-// .reveal .slide #docker {
-      font-size: 10em;
-}
-.reveal h1 { font-size: 1.5em; } 
-
-*/
-/*.reveal pre code {
-  background: #FFFFFF;
-}*/
-
-/*
-.reveal h1 { font-size: 1.5em; } 
-
-.reveal ul {
-  text-align: left;
-  margin-left: -100px;
-  padding: 0px;
-}
+.reveal h1 { font-size: 2.5em; text-shadow: none; }
+.reveal h2 { font-size: 1.6em; }
+.reveal h3 { font-size: 1.3em; }
+.reveal h4 { font-size: 1em; }
 
 
-.reveal .slide .sourceCode {
-    font-color: white;
-}
-
-@media screen and (max-width: 4000px), (max-height: 6000px) {
-    .reveal .slides {
-
-        font-size: 0.7em;
-    }
-}
-
-@media screen and (max-width: 900px), (max-height: 600px) {
-    .reveal .slides {
-        font-size: 0.66em;
-    }
-}
-
-@media screen and (max-width: 700px), (max-height: 400px) {
-    .reveal .slides {
-        font-size: 0.66em;
-    }
-}
-*/

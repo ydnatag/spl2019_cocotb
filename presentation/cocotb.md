@@ -3,7 +3,7 @@ author: Andres Demski
 title: COCOTB Testbench en python
 date: 2019
 revealOptions:
-    transition: 'none'
+    transition: 'slide'
 ---
 
 # COCOTB
@@ -16,12 +16,12 @@ revealOptions:
 
 ## Agenda: Introducción
 - Puesta en marcha de PCs
-- Introduccion al SW
+- Introducción al SW
 - Introducción a Python
 
 ----
 
-## Agenda: Basico
+## Agenda: Básico
 
 - Testbenchs:
     - Flujo de trabajo
@@ -29,9 +29,11 @@ revealOptions:
     - TB en lenguajes HDL
 - COCOTB:
     - Arquitectura
-    - Hello World
-    - yield y corutinas
-    - No mas waveforms
+    - Modo de uso
+    - Corrutinas
+    - Practica y ejemplos
+    
+   
 
 ----
 
@@ -114,7 +116,7 @@ sudo usermod -aG docker your-user
 
 ----
 
-### Preparanto las herramientas...
+### Preparando las herramientas...
 
 Crear imagen
 ```bash
@@ -128,7 +130,7 @@ docker run andresdemski/spl2019 echo "Hello World"
 
 ----
 
-Clonar el repo 
+Clonar el repositorio
 ```bash
 git clone https://github.com/andresdemski/spl2019_cocotb.git
 ```
@@ -154,10 +156,10 @@ make -C ejemplos/cocotest
 
 * Opensource  
 * Multiplataforma  
-* Sintaxis sensilla  
+* Sintaxis sencilla  
 * OOP  
 * Escalable para grandes aplicaciones  
-* Librerias y soporte en la comunidad  
+* Librerías y soporte en la comunidad  
 * En continuo desarrollo
 * Garbage collector
 
@@ -167,7 +169,7 @@ make -C ejemplos/cocotest
 
 ----
 
-## Amplicaciones
+## Aplicaciones
 * Web
 * Backend
 * Automatización
@@ -379,7 +381,7 @@ contar:
 ```
 \#2
 ```python
-Editar la clase anterior para que tenga un metodo que realice
+Editar la clase anterior para que tenga un método que realice
 cuantas veces se repiten las palabras (no case sensitive) 
 retornando un diccionario:
 
@@ -476,7 +478,7 @@ make TESTCASE=hello_world MODULE=test_hello_world
 
 ----
 
-#### Que pasa por atras?
+#### Que pasa por atrás?
 
 # ![cocotb](./img/coroutines.svg) <!-- .element width="100%"-->
 
@@ -526,40 +528,112 @@ make
 
 ----
 
+---- 
 ### Practica #1
-Tomando como ejemplo el test ubicado en `ejemplos/cocotest`, hacer un
-test desde cero escribiendo los archivos `Makefile` y `test.py`. 
+Tomando como ejemplo el test ubicado en *ejemplos/cocotest*, hacer un
+test desde cero escribiendo los archivos *Makefile* y *test.py*. 
 Se puede usar cualquier archivo HDL que tengas o utilizar el del ejemplo.
+
+---- 
 
 ----
 
 ### Asignación de señales
+```python
+dut.signal <= 1
+dut.signal.value = 5
+
+signal = dut.signal
+signal <= 1 
+signal.value = 5
+
+dut.instancia.signal <= 1
+
+instancia = dut.instancia
+instancia.signal <= 1
+```
+----
+
+### Lectura de señales
+```python
+
+a = dut.signal.integer # unsigned integer
+a = dut.signal.signed_integer # signed ineger
+a = dut.signal.binstr # str representation (z & x supported)
+a = dut.signa.buff # bytes
+```
 
 ----
 
-### Seder recurso al simulador
+### Cuando corre la simulación? yield!!
 
-# ![cocotb](./img/coroutines.svg) <!-- .element width="100%"-->
+# ![cocotb](./img/coroutines.svg) <!-- .element width="70%"-->
+##### todas las corrutinas tienen que hacer yield
+
+```python
+@cocotb.test()
+def test(dut):
+    dut.signal <= 1
+    cocotb.log.info(dut.signal)
+    yield Timer(1, units='ns')
+    dut.signal <= 0
+    cocotb.log.info(dut.signal)
+```
 
 ----
 
+#### Triggers
+
+```python
+yield Timer(1, units='ns') # Tiempo
+yield RisingEdge(dut.clk) # Flanco ascendente
+yield FallingEdge(dut.clk) # Flanco descendente
+yield Edge(dut.clk) # Cualquier flanco
+yield coroutine.join() # Fin de corrutina
+
+evt = Event() # Crea un evento
+...
+yield evt.wait() # Espera a evt.set()
+
+# Esperar la ocurrencia de un evento en una lista de eventos
+timeout = Timer(100, units = 'ns')
+trg = yield [RisingEdge(dut.clk), timeout]
+if trg == timeout:
+    ....
+```
+
+----
+
+---- 
 ### Practica #2
 
-Utilizando los fuentes en `practica/clock_gen`, hacer un test que genere
+Utilizando los fuentes en *practica/clock_gen*, hacer un test que genere
 un clock de 10ns de periodo.
 
-Utilizar el comando `make gtkwave` para ver las waveforms
+Utilizar el comando *make gtkwave* para ver las waveforms
+
+---- 
 
 ----
 
-### Corutinas
+### Corrutinas
+##### Funciones que consumen tiempo de simulación (hacen yield)
+
+```python
+@cocotb.coroutine
+def nombre_de_la_corrutina(argumentos):
+    signal = alguna_signal_en_los_argumentos
+    for _ in range(10):
+        yield RisingEdge(signal)
+```
 
 ----
 
+---- 
 ### Practica #3
 
-Realizar lo mismo que en la práctica #2 pero con una corutinas. Utilizar
-TESTCASE en lo posible.
+Realizar lo mismo que en la práctica #2 pero con una corrutinas. Utilizar
+*TESTCASE* en lo posible.
 
 ```python
 def testcase_practica2(dut):
@@ -571,72 +645,195 @@ def testcase_practica3(dut):
     for _ in range(10):
         yield clock_generator(cycles=1)
 ```
+---- 
 
 ----
 
 ### Fork
 
 ```python
-# Lanzar una corutina
-cocotb.fork(corutina(argumentos))
+# Lanzar una corrutina
+cocotb.fork(corrutina(argumentos))
 
 # Esperar a que termine
-cor = cocotb.fork(corutina(argumentos))
+cor = cocotb.fork(corrutina(argumentos))
 yield cor.join()
 
-# Matar una corutina
-cor = cocotb.fork(corutina(argumentos))
+# Matar una corrutina
+cor = cocotb.fork(corrutina(argumentos))
 cor.kill()
+
+# Clock
+cocotb.fork(Clock(signal, periodo, units='ns').start())
+
 ```
 
 ----
 
+---- 
 ### Práctica 4
 
 Utilizar la cortina hecha en la practica #3 y hacer que corra en paralelo
-al test. Hacer que el test espere la finalización de la corutina.
+al test. Hacer que el test espere la finalización de la corrutina.
+
+---- 
 
 ----
 
-### Pensando en paralelo
-### Por que yield? Que significa
-### Ejemplo #1: Contador con reset
-### Ejemplo #2: Contador con enable
-## Test results
-### Success, Faiule & Error
-### Practica #1: Sumador
+---- 
+### Practica 5
 
-# Estructuras "avanzadas" de test
-## Drivers
-## Monitores
-## Loggers
-## Orientado a objetos
-## Tests y test factory
+Hacer un test que genere estímulos y lea la salida del un sumador combinacional
+(practica/sumador\_comb)
+
+---- 
+
+### Practica 6
+
+Hacer un test que genere estímulos y lea la salida del un sumador secuencial
+(practica/sumador\_sync)
+
+---- 
+
+----
+
 ## Resultados
-## Ejemplo #3: Simple interface
-## Practica #2: AXI Stream
-### sumador con codigo HLS
 
-# Practicas
-## SPI con SI
-### datos tx
-### secuencia
-### datos rx
-### frecuencia
+```python
+if condicion:
+    raise TestFailure('Falla el test')
 
-# Cheatsheet
-### Triggers
-### Results
-### Fork 
-### corutina
-### test
+if condicion:
+    raise TestSuccess('El test finaliza sin fallas') 
 
+if condicion:
+    raise TestError('Falla pero reportando error')
+```
 
+----
 
+---- 
 
+### Practica 7
 
+Modificar la practica 6 para que genere un error si la
+salida no es la esperada
 
+---- 
 
+---
 
+## Estructuras avanzadas
 
+# ![full_test](./img/full_test.svg)
+
+----
+
+### Driver
+
+Son los encargados de generar los estímulos.
+
+```python
+
+class AlgunDriver()
+    def __init__(self, dut):
+        self.clk = dut.clk
+        self.signal_a = dut.signal_a
+
+    @cocotb.coroutine
+    def send(self, data):
+        for d in data:
+            self.signal_a <= d
+            yield RisingEdge(self.clk)
+
+@cocotb.test()
+def test(dut):
+    ...
+    drv = AlgunDriver(dut)
+    yield drv.send([i for i in range(10)])
+    ....
+    sending =  cocotb.fork(drv.send([i for i in range(100)])
+    data = yield other_drv.recv(100)
+    yield sending.join()
+```
+
+----
+
+### Monitor
+
+Monitoreo de señales para generar señales de error y
+obtención de la información útil para determinar el
+funcionamiento.
+
+```python
+class AlgunMonitor()
+    def __init__(self, dut):
+        self.clk = dut.clk
+        self.signal_a = dut.signal_a
+        self.data = []
+
+    @cocotb.coroutine
+    def start(self, data):
+        while True:
+            yield RisingEdge(self.clk)
+            self.data.append(self.signal_a.value.integer)
+
+@cocotb.test()
+def test(dut):
+    drv_in = AlgunDriverInput(dut)
+    drv_out = AlgunDriverOutput(dut)
+    mon_in = AlgunMonitorInput(dut)
+    mon_out = AlgunMonitorOutput(dut)
+
+    sending =  cocotb.fork(drv_in.send([i for i in range(100)])
+    cocotb.fork(drv_out.receiver())
+    cocotb.fork(mon_in.start())
+    cocotb.fork(mon_out.start())
+    yield sending.join()
+    
+    data_in = mon_in.data
+    data_out = mon_out.data
+    if data_out != [2*d for d in data_in]:
+        raise TestFaiule('La salida tiene que ser el doble de la entrada')
+    ...
+    
+```
+
+----
+
+---- 
+## Practica 8
+A travez de vivado HLS se generó un bloque sumador con interfaces AXI Stream
+de entrada y de salida. En este ejercicio se pide:
+* Hacer drivers y monitores para axi stream
+* Utilizar los driver y monitores para hacer un test que valide el comportamiento  
+
+# ![axis](./img/axi_stream.png)
+
+----
+
+---- 
+## Practica 9
+En este ejercicio se proporciona un periférico SPI posible de conectar a un bus
+AXI4 lite.  
+A partir de la plantilla de test *practica/axi_lite_spi*, completar los tests
+propuestos para verificar su funcionalidad.
+
+---- 
+
+---
+## Conclusiones
+
+* COCOTB proporciona una interfaz amigable para hacer TB
+* La potencialidad y portabilidad dependen del programador
+* Buena opción cuando no se necesita rendimiento
+
+---
+
+## Preguntas ?
+
+---
+
+# ![](./img/satellogic.jpeg) <!-- .element width="20%"-->
+# Muchas gracias
 

@@ -589,6 +589,7 @@ make
 Tomando como ejemplo el test ubicado en *ejemplos/cocotest*, hacer un
 test desde cero escribiendo los archivos *Makefile* y *test.py*. 
 Se puede usar cualquier archivo HDL que tengas o utilizar el del ejemplo.
+
 --------
 
 ----
@@ -642,7 +643,6 @@ a = dut.signa.buff # bytes
 ### Cuando corre la simulación? yield!!
 
 # ![cocotb](./img/coroutines.svg) <!-- .element width="70%"-->
-##### todas las corrutinas tienen que hacer yield
 
 ```python
 @cocotb.test()
@@ -656,7 +656,8 @@ def test(dut):
 
 ----
 
-#### Triggers
+### Triggers
+-------------
 
 ```python
 yield Timer(1, units='ns') # Tiempo
@@ -691,6 +692,8 @@ Utilizar el comando *make gtkwave* para ver las waveforms
 ----
 
 ### Corrutinas
+--------------
+
 ##### Funciones que consumen tiempo de simulación (hacen yield)
 
 ```python
@@ -724,6 +727,7 @@ def testcase_practica3(dut):
 ----
 
 ### Fork
+--------
 
 ```python
 # Lanzar una corrutina
@@ -772,6 +776,7 @@ Hacer un test que genere estímulos y lea la salida del un sumador secuencial
 ----
 
 ## Resultados
+------------
 
 ```python
 if condicion:
@@ -804,6 +809,7 @@ salida no es la esperada
 ----
 
 ### Driver
+---------
 
 Son los encargados de generar los estímulos.
 
@@ -834,7 +840,7 @@ def test(dut):
 ----
 
 ### Monitor
-
+------------ 
 Monitoreo de señales para generar señales de error y
 obtención de la información útil para determinar el
 funcionamiento.
@@ -876,14 +882,18 @@ def test(dut):
 ----
 
 ### Parametrizar test
+----------
 
-```python3
+```python
 @cocotb.coroutine # definir los test como corrutinas
 def test_parametrizado(dut, parametro1, parametro2):
     ....
-
-
-
+tf = TestFactory(test_parametrizado)
+tf.add_option('parametro1', [1, 2])
+tf.add_option('parametro2', ['hola', 'chau'])
+tf.generate_tests()
+```
+--------
 
 ----
 
@@ -905,6 +915,7 @@ En este ejercicio se proporciona un periférico SPI posible de conectar a un bus
 AXI4 lite.  
 A partir de la plantilla de test *practica/axi_lite_spi*, completar los tests
 propuestos para verificar su funcionalidad.
+
 --------------
 
 ---

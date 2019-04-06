@@ -1,13 +1,12 @@
-from python:3.7
+from python:3.6
 
-RUN apt update && apt install -y iverilog gtkwave make clang llvm \
-                                 build-essential zlib1g-dev git gnat
+RUN apt update && apt install -y  --no-install-recommends iverilog gtkwave make build-essential git gnat
 
 WORKDIR /root
 
 RUN git clone https://github.com/tgingold/ghdl.git ghdl_src/ \
     && cd ghdl_src \
-    && ./configure --prefix=/usr/local --with-llvm-config \
+    && ./configure --prefix=/usr/local \
     && make \
     && make install \
     && make clean \
@@ -16,8 +15,6 @@ RUN git clone https://github.com/tgingold/ghdl.git ghdl_src/ \
 
 
 RUN pip install git+https://github.com/potentialventures/cocotb.git
-
-RUN apt install -y pandoc
 
 CMD /bin/bash
 

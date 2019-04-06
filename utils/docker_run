@@ -13,5 +13,5 @@ docker run -it \
            -e PATH=${REPO_PATH}/utils:${PATH}:/bin \
            -e DISPLAY=$DISPLAY \
            --net=host \
-            andresdemski/spl2019 \
+            andresdemski/spl2019:cocotb \
             ${@:-/bin/bash}

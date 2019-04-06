@@ -1,12 +1,9 @@
 #!/bin/bash
 
+set -x
 REPO_PATH=$(git rev-parse --show-toplevel)
+IMG=andresdemski/spl2019:revealmd
+CMD="reveal-md presentacion/cocotb.md --css presentacion/cocotb.css --static presentacion/static"
+DOCKER_CMD="docker run --rm -it -v $REPO_PATH:$REPO_PATH -w $REPO_PATH -u$(id -u):$(id -g)"
 
-cd $REPO_PATH
-pandoc -t revealjs \
-       -s -o index.html \
-       $REPO_PATH/presentation/cocotb.md \
-       -V revealjs-url=http://lab.hakim.se/reveal-js \
-       -V theme=league --mathjax --slide-level=2 \
-       -V transition=slide \
-       --css $REPO_PATH/presentation/cocotb.css
+$DOCKER_CMD $IMG $CMD

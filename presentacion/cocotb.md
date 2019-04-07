@@ -54,21 +54,18 @@ revealOptions:
 ## Software necesario
 ---------------------
 
-<ul>
-<span class="fragment (appear)" data-fragment-index="1"><li>
+<span class="fragment (appear)" data-fragment-index="1"><p>
 python
-</li><span class="fragment (appear)" data-fragment-index="2"><li>
+</p><span class="fragment (appear)" data-fragment-index="2"><p>
 cocotb
-</li><span class="fragment (appear)" data-fragment-index="3"><li>
+</p><span class="fragment (appear)" data-fragment-index="3"><p>
 iverilog / ghdl
-</li><span class="fragment (appear)" data-fragment-index="5"><li>
+</p><span class="fragment (appear)" data-fragment-index="5"><p>
 gtkwave
-</li><span class="fragment (appear)" data-fragment-index="6">
-<p style="text-align: center;">
-</p><p style="font-size: 3em; text-align: center;">
+</p><span class="fragment (appear)" data-fragment-index="6">
+<p style="text-apgn: center; font-size: 3em; text-apgn: center;">
 **Docker**
 </p>
-</ul>
 ----
 
 # Instalación clásica
@@ -205,26 +202,26 @@ make -C ejemplos/cocotest
 ## Tipos de datos
 -----------------
 
-* int  
+int  
 
 ```python
 a = 5; a = 10; a = 1000000; a = 10000000000000000
 ```
 
-* bool
+bool
 
 ```python
 a = True
 a = False
 ```
 
-* float
+float
 
 ```python
 a = 5.1; a = 10.2e6; a = 1e6
 ```
 
-* complex
+complex
 
 ```python
 a = 1 + 1j; a = 10.2e6j; a = 1e3 + 1e6j
@@ -232,7 +229,7 @@ a = 1 + 1j; a = 10.2e6j; a = 1e3 + 1e6j
 
 ----
 
-* string
+string
 
 ```python
 a = "Hola"
@@ -240,12 +237,12 @@ a = a + " Mundo " # "Hola Mundo "
 b = a * 2 # Hola Mundo Hola Mundo
 res = b.split(' ') # ["Hola", "Mundo"]
 ```
-* bytes
+bytes
 
 ```python
 a = b"hola"
 ```
-* list
+list
 
 ```python
 a = [11, 22, 33, 44]
@@ -257,13 +254,13 @@ a[0:2] # [11, 22]
 ```
 ----
 
-* tuplas
+tuplas
 
 ```python
 a = (11, 22, 33, 44)
 ```
 
-* diccionarios
+diccionarios
 
 ```python
 a = {"a": 1, "b": 2, "hola": 3, 10: "hola" }
@@ -303,14 +300,14 @@ with open('archivo.txt') as f:
 
 ### Funciones, generadores y clases
 -----------------------------------
-* funciones
+funciones
 
 ```python
 def funcion(arg1, arg2):
     res = arg1 + arg2
     return res
 ```  
-* clases  
+clases  
 
 ```python
 class Complejo():
@@ -326,7 +323,7 @@ print(cplx.abs())
 
 ----
 
-* Generadores
+Generadores
 
 ```python
 def my_range(end):
@@ -350,13 +347,13 @@ for i in my_range(5):
 ### Sintaxis extra
 ------------------
 
-* List comprehensions
+List comprehensions
 
 ```python
 a = [ 3*i for i in iter if condition]
 ```
 
-* Funciones lambda
+Funciones lambda
 
 ```python
 my_pow = lambda x, p: x**p
@@ -381,7 +378,7 @@ assert a < 5, "Error si a no cumple la condición"
 
 ----
 
-try, except, finally
+Try, Except, Finally
 
 ```python
 try:
@@ -584,8 +581,8 @@ make
 
 ----
 
----------
 ### Practica #1
+---------
 Tomando como ejemplo el test ubicado en *ejemplos/cocotest*, hacer un
 test desde cero escribiendo los archivos *Makefile* y *test.py*. 
 Se puede usar cualquier archivo HDL que tengas o utilizar el del ejemplo.
@@ -679,8 +676,8 @@ if trg == timeout:
 
 ----
 
----- 
 ### Practica #2
+--------------
 
 Utilizando los fuentes en *practica/clock_gen*, hacer un test que genere
 un clock de 10ns de periodo.
@@ -706,8 +703,8 @@ def nombre_de_la_corrutina(argumentos):
 
 ----
 
----- 
 ### Practica #3
+---------------
 
 Realizar lo mismo que en la práctica #2 pero con una corrutinas. Utilizar
 *TESTCASE* en lo posible.
@@ -748,30 +745,33 @@ cocotb.fork(Clock(signal, periodo, units='ns').start())
 
 ----
 
----- 
 ### Práctica 4
+--------------
 
 Utilizar la cortina hecha en la practica #3 y hacer que corra en paralelo
 al test. Hacer que el test espere la finalización de la corrutina.
 
----- 
+--------------
 
 ----
 
----- 
 ### Practica 5
+--------------
 
 Hacer un test que genere estímulos y lea la salida del un sumador combinacional
 (practica/sumador\_comb)
 
----- 
+--------------
+
+----
 
 ### Practica 6
+--------------
 
 Hacer un test que genere estímulos y lea la salida del un sumador secuencial
 (practica/sumador\_sync)
 
----- 
+-----------------
 
 ----
 
@@ -789,16 +789,17 @@ if condicion:
     raise TestError('Falla pero reportando error')
 ```
 
+--------------
+
 ----
 
----- 
-
 ### Practica 7
+-------------
 
 Modificar la practica 6 para que genere un error si la
 salida no es la esperada
 
----- 
+----------
 
 ---
 
@@ -897,8 +898,8 @@ tf.generate_tests()
 
 ----
 
--------------
 ## Practica 8
+-------------
 A travez de vivado HLS se generó un bloque sumador con interfaces AXI Stream
 de entrada y de salida. En este ejercicio se pide:
 * Hacer drivers y monitores para axi stream
@@ -909,8 +910,8 @@ de entrada y de salida. En este ejercicio se pide:
 
 ----
 
---------------
 ## Practica 9
+--------------
 En este ejercicio se proporciona un periférico SPI posible de conectar a un bus
 AXI4 lite.  
 A partir de la plantilla de test *practica/axi_lite_spi*, completar los tests

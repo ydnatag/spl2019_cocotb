@@ -462,13 +462,13 @@ obj.get_start_times()
 ### Flujo de trabajo
 -------------------
 
-# ![workflow](./img/work_flow.svg) <!-- .element height="50%" width="50%"-->
+# ![workflow](./img/work_flow.png) <!-- .element height="50%" width="50%"-->
 
 ----
 
 ### Plataforma de test
 ----------------------
-# ![testcmp](./img/test_cmp.svg) <!-- .element height="70%" width="50%"-->
+# ![testcmp](./img/test_cmp.png) <!-- .element height="70%" width="50%"-->
 
 ----
 
@@ -489,7 +489,7 @@ module tb();
     $finish;
   end
 ```
-# ![testcmp](./img/tbclasico.svg) <!-- .element width="60%""-->
+# ![testcmp](./img/tbclasico.png) <!-- .element width="60%""-->
 
 ----
 
@@ -524,7 +524,7 @@ module tb();
 ### Como lanzar un test?
 ------------------------
 
-# ![cocotb](./img/launch_test.svg) <!-- .element width="60%"-->
+# ![cocotb](./img/launch_test.png) <!-- .element width="60%"-->
 
 ```bash
 make TESTCASE=hello_world MODULE=test_hello_world
@@ -535,7 +535,7 @@ make TESTCASE=hello_world MODULE=test_hello_world
 #### Que pasa por atrás?
 ------------------------
 
-# ![cocotb](./img/coroutines.svg) <!-- .element width="100%"-->
+# ![cocotb](./img/coroutines.png) <!-- .element width="100%"-->
 
 ---
 
@@ -642,7 +642,7 @@ a = dut.signa.buff # bytes
 
 ### Cuando corre la simulación? yield!!
 
-# ![cocotb](./img/coroutines.svg) <!-- .element width="70%"-->
+# ![cocotb](./img/coroutines.png) <!-- .element width="70%"-->
 
 ```python
 @cocotb.test()
@@ -804,7 +804,7 @@ salida no es la esperada
 
 ## Estructuras avanzadas
 
-# ![full_test](./img/full_test.svg)
+# ![full_test](./img/full_test.png)
 
 ----
 

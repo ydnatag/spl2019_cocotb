@@ -1,4 +1,4 @@
-# spl2019_cocotb
+# COCOTB: Test en Python
 
 Este repositorio posee los fuentes necesarios para realizar el
 workshop "Testbench en Python" del SPL2019.
@@ -27,7 +27,7 @@ de HDL:
 make gtkwave
 ```
 
-# Requisitos
+# Requerimientos
 
 * Docker
 * git

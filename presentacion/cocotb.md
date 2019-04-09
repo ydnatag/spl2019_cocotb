@@ -395,6 +395,7 @@ finally:
 ----
 
 Manejo de archivos
+
 ------------------
 
 ```python
@@ -406,6 +407,7 @@ f.close()
 ```
 
 HELP!
+
 -----
 ```python
 help(int)

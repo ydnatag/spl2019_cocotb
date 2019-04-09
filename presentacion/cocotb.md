@@ -747,9 +747,11 @@ Realizar lo mismo que en la práctica #2 pero con una corrutina. Utilizar
 *TESTCASE* en lo posible.
 
 ```python
+@cocotb.test()
 def practica2(dut):
     ...
 
+@cocotb.test()
 def practica3(dut):
     yield clock_generator(cycles=10)
 

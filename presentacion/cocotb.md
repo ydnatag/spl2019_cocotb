@@ -127,8 +127,8 @@ sudo usermod -aG docker your-user
 
 Crear imagen
 ```bash
-docker build -f .docker/Dockerfile -t spl2019 .
-docker pull andresdemski/spl2019
+docker build -f .docker/Dockerfile -t andresdemski/spl2019:cocotb .
+docker pull andresdemski/spl2019:cocotb
 ```
 Hello World
 ```bash

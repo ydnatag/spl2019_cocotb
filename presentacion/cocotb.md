@@ -35,7 +35,7 @@ revealOptions:
     - Arquitectura
     - Modo de uso
     - Corrutinas
-    - Practica y ejemplos
+    - Práctica y ejemplos
     
 ----
 
@@ -45,7 +45,7 @@ revealOptions:
     - Driver
     - Monitores
     - Interfaces
-- Practicas
+- Prácticas
     - AXI Stream
     - AXI4 Lite
     - SPI
@@ -127,8 +127,8 @@ sudo usermod -aG docker your-user
 
 Crear imagen
 ```bash
-docker build -f .docker/Dockerfile -t spl2019 .
-docker pull andresdemski/spl2019
+docker build -f .docker/Dockerfile -t andresdemski/spl2019:cocotb .
+docker pull andresdemski/spl2019:cocotb
 ```
 Hello World
 ```bash
@@ -191,7 +191,7 @@ make -C ejemplos/cocotest
 
 ## Sintaxis
 ------
-* No tiene fin de linea
+* No tiene fin de línea obligatoria
 * Case sensitive
 * Bloques por identación
 * Parecida a C y Matlab
@@ -235,7 +235,7 @@ string
 a = "Hola"
 a = a + " Mundo " # "Hola Mundo "
 b = a * 2 # Hola Mundo Hola Mundo
-res = b.split(' ') # ["Hola", "Mundo"]
+res = b.split(' ') # ["Hola", "Mundo", "Hola", "Mundo"]
 ```
 bytes
 
@@ -392,15 +392,39 @@ finally:
 ```
 ----------------------
 
+----
+
+Manejo de archivos
+
+------------------
+
+```python
+f = open('nombre_del_archivo', 'r')
+f.read()
+f.write(data)
+f.close()
+
+```
+
+HELP!
+
+-----
+```python
+help(int)
+help(str)
+a = "Hola"
+help(a)
+```
+
 ---
 
 ----------------------
-# Practicas de Python
+# Prácticas de Python
 ----------------------
 
 ----
 
-### Practica 1
+### Práctica 1
 --------------
 ```python
 Hacer una clase que sea capaz de abrir un archivo de texto y
@@ -415,11 +439,11 @@ contar:
 
 ----
 
-### Practica 2
+### Práctica 2
 --------------
 ```python
-Editar la clase anterior para que tenga un método que realice
-cuantas veces se repiten las palabras (no case sensitive) 
+Editar la clase anterior para que tenga un método que cuente
+cuantas veces se repiten todas las palabras (no case sensitive) 
 retornando un diccionario:
 
 obj.statistic()
@@ -430,7 +454,7 @@ obj.statistic()
 
 ----
 
-### Practica 3
+### Práctica 3
 --------------
 ```python
 Usando el paquete time:
@@ -490,16 +514,16 @@ module tb();
 
 ----
 
-#### Problemas de los TB clasicos
+#### Problemas de los TB clásicos
 --------------------------------
 
 * Sintaxis poco amigable
 * Capacidad reducida y complicada de comunicarse con otras aplicaciones
-* Mantenimiento complicado
+* Arduo mantenimiento
 * Baja portabilidad
-* La sincronización de eventos es complicada
+* La sincronización de eventos es complicada.
 * Se debe hacer un toplevel diferente al sintetizado para poder simular
-* Frameworks (UVM, UVVM, OVM, OSVVM) dificiles de aprender
+* Frameworks (UVM, UVVM, OVM, OSVVM) difíciles de aprender
 
 ---
 
@@ -529,7 +553,7 @@ make TESTCASE=hello_world MODULE=test_hello_world
 
 ----
 
-#### Que pasa por atrás?
+#### ¿Qué pasa por atrás?
 ------------------------
 
 # ![cocotb](./img/coroutines.png) <!-- .element width="100%"-->
@@ -581,10 +605,23 @@ make
 
 ----
 
-### Practica #1
+### Práctica #1
 ---------
 Tomando como ejemplo el test ubicado en *ejemplos/cocotest*, hacer un
-test desde cero escribiendo los archivos *Makefile* y *test.py*. 
+test desde cero escribiendo el archivo *Makefile* y los tests.
+El archivo *test.py* debe contener lo siguiente:
+
+```python
+import cocotb
+from cocotb.triggers import Timer
+
+@cocotb.test()
+def my_first_test(dut):
+    cocotb.log.info("Iniciando test")
+    yield Timer(1, units='us')
+    cocotb.log.info("Finalizando test")
+```
+
 Se puede usar cualquier archivo HDL que tengas o utilizar el del ejemplo.
 
 --------
@@ -632,12 +669,12 @@ instancia.signal <= 1
 a = dut.signal.integer # unsigned integer
 a = dut.signal.signed_integer # signed ineger
 a = dut.signal.binstr # str representation (z & x supported)
-a = dut.signa.buff # bytes
+a = dut.signal.buff # bytes
 ```
 
 ----
 
-### Cuando corre la simulación? yield!!
+### ¿Cuándo corre la simulación? yield!!
 
 # ![cocotb](./img/coroutines.png) <!-- .element width="70%"-->
 
@@ -676,10 +713,10 @@ if trg == timeout:
 
 ----
 
-### Practica #2
+### Práctica #2
 --------------
 
-Utilizando los fuentes en *practica/clock_gen*, hacer un test que genere
+Utilizando los fuentes en *práctica/clock_gen*, hacer un test que genere
 un clock de 10ns de periodo.
 
 Utilizar el comando *make gtkwave* para ver las waveforms
@@ -703,17 +740,19 @@ def nombre_de_la_corrutina(argumentos):
 
 ----
 
-### Practica #3
+### Práctica #3
 ---------------
 
-Realizar lo mismo que en la práctica #2 pero con una corrutinas. Utilizar
+Realizar lo mismo que en la práctica #2 pero con una corrutina. Utilizar
 *TESTCASE* en lo posible.
 
 ```python
-def testcase_practica2(dut):
+@cocotb.test()
+def practica2(dut):
     ...
 
-def testcase_practica3(dut):
+@cocotb.test()
+def practica3(dut):
     yield clock_generator(cycles=10)
 
     for _ in range(10):
@@ -748,28 +787,28 @@ cocotb.fork(Clock(signal, periodo, units='ns').start())
 ### Práctica 4
 --------------
 
-Utilizar la cortina hecha en la practica #3 y hacer que corra en paralelo
+Utilizar la corrutina hecha en la práctica #3 y hacer que corra en paralelo
 al test. Hacer que el test espere la finalización de la corrutina.
 
 --------------
 
 ----
 
-### Practica 5
+### Práctica 5
 --------------
 
-Hacer un test que genere estímulos y lea la salida del un sumador combinacional
-(practica/sumador\_comb)
+Hacer un test que genere estímulos y lea la salida de un sumador combinacional
+(práctica/sumador\_comb)
 
 --------------
 
 ----
 
-### Practica 6
+### Práctica 6
 --------------
 
-Hacer un test que genere estímulos y lea la salida del un sumador secuencial
-(practica/sumador\_sync)
+Hacer un test que genere estímulos y lea la salida de un sumador secuencial
+(práctica/sumador\_sync)
 
 -----------------
 
@@ -793,10 +832,10 @@ if condicion:
 
 ----
 
-### Practica 7
+### Práctica 7
 -------------
 
-Modificar la practica 6 para que genere un error si la
+Modificar la práctica 6 para que genere un error si la
 salida no es la esperada
 
 ----------
@@ -898,7 +937,7 @@ tf.generate_tests()
 
 ----
 
-## Practica 8
+## Práctica 8
 -------------
 A travez de vivado HLS se generó un bloque sumador con interfaces AXI Stream
 de entrada y de salida. En este ejercicio se pide:
@@ -910,11 +949,11 @@ de entrada y de salida. En este ejercicio se pide:
 
 ----
 
-## Practica 9
+## Práctica 9
 --------------
 En este ejercicio se proporciona un periférico SPI posible de conectar a un bus
 AXI4 lite.  
-A partir de la plantilla de test *practica/axi_lite_spi*, completar los tests
+A partir de la plantilla de test *práctica/axi_lite_spi*, completar los tests
 propuestos para verificar su funcionalidad.
 
 --------------
@@ -923,8 +962,13 @@ propuestos para verificar su funcionalidad.
 ## Conclusiones
 ---------------
 * COCOTB proporciona una interfaz amigable para hacer TB
+* Capacidad de abstracción y OOP
 * La potencialidad y portabilidad dependen del programador
 * Buena opción cuando no se necesita rendimiento
+* Es más fácil conseguir un programador que alguien que sepa FPGA
+* Al utilizar plataforma como Zynq, el testbench es portable con pocas modificaciones
+para correr en los procesadores reales.
+
 ---------------
 
 ---
